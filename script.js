@@ -201,7 +201,7 @@ finger.style.display="flex";
 
 let timer;
 
-let timer;
+
 
 function startScan() {
 
