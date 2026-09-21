@@ -252,7 +252,7 @@ fingerPrint.addEventListener("touchstart", (e) => {
     startScan();
 });
 
-fingerPrint.addEventListener("touchend", cancelScan);
+fingerPrint.addEventListener("touchend", cancelScan)
 
 status.textContent="SCANNING...";
 scan.style.display="block";
