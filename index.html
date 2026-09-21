@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <!-- Boot Screen -->
+<div id="bootScreen">
+    <div class="bootText">
+        CYBER CALCULATOR V3.0
+        <br><br>
+        INITIALIZING...
+        <br>
+        █████████░ 90%
+    </div>
+</div>
+
+<!-- Fingerprint Screen -->
+<div id="fingerScreen">
+    <div class="fingerBox">
+        <div class="fingerprint"></div>
+        <h2>IDENTITY VERIFICATION</h2>
+        <p>Hold left mouse button for 2 seconds</p>
+
+        <div class="scanLine"></div>
+
+        <div id="status">WAITING...</div>
+    </div>
+</div>
+</div>
+
+<div class="calculator">
+    <div class="scan"></div>
+    <input type="text" id="display" readonly>
+
+    <div class="buttons">
+        <button onclick="clearDisplay()">AC</button>
+        <button onclick="deleteOne()">DEL</button>
+        <button onclick="append('%')">%</button>
+        <button class="operator" onclick="append('/')">÷</button>
+
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button class="operator" onclick="append('-')">−</button>
+
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button onclick="append('0')" class="zero">0</button>
+        <button onclick="append('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+    <div id="history"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

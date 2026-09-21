@@ -1,0 +1,318 @@
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Consolas,monospace;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#05070d;
+overflow:hidden;
+}
+
+body::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:#00ff88;
+filter:blur(180px);
+opacity:.15;
+animation:pulse 4s infinite;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.2);}
+}
+
+.calculator{
+position:relative;
+width:360px;
+padding:20px;
+border-radius:25px;
+background:rgba(20,20,30,.7);
+backdrop-filter:blur(20px);
+border:1px solid rgba(0,255,136,.3);
+box-shadow:0 0 40px rgba(0,255,136,.25);
+}
+
+#display{
+width:100%;
+height:80px;
+background:#000;
+color:#00ff88;
+border:none;
+outline:none;
+font-size:2rem;
+text-align:right;
+padding:15px;
+border-radius:15px;
+box-shadow:inset 0 0 20px rgba(0,255,136,.3);
+margin-bottom:20px;
+}
+
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+button{
+height:65px;
+border:none;
+border-radius:15px;
+background:#111;
+color:#00ff88;
+font-size:1.2rem;
+cursor:pointer;
+transition:.2s;
+box-shadow:0 0 10px rgba(0,255,136,.15);
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 0 20px rgba(0,255,136,.5);
+}
+
+button:active{
+transform:scale(.95);
+}
+
+.operator{
+background:#003322;
+}
+
+.equal{
+background:#00ff88;
+color:black;
+font-weight:bold;
+}
+
+.zero{
+grid-column:span 2;
+}
+
+#matrix{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
+}
+
+.calculator{
+animation:rgbGlow 6s linear infinite;
+}
+
+@keyframes rgbGlow{
+
+0%{
+box-shadow:0 0 30px #00ff88;
+border-color:#00ff88;
+}
+
+33%{
+box-shadow:0 0 30px #00ccff;
+border-color:#00ccff;
+}
+
+66%{
+box-shadow:0 0 30px #ff00ff;
+border-color:#ff00ff;
+}
+
+100%{
+box-shadow:0 0 30px #00ff88;
+border-color:#00ff88;
+}
+
+}
+
+.scan{
+
+position:absolute;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:3px;
+
+background:rgba(0,255,136,.8);
+
+box-shadow:0 0 20px #00ff88;
+
+animation:scan 3s linear infinite;
+
+}
+
+@keyframes scan{
+
+0%{top:0;}
+
+100%{top:100%;}
+
+}
+
+#history{
+
+margin-top:15px;
+
+max-height:120px;
+
+overflow-y:auto;
+
+font-size:14px;
+
+color:#88ffcc;
+
+border-top:1px solid rgba(0,255,136,.3);
+
+padding-top:10px;
+
+}
+.calculator::before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+background:radial-gradient(circle,#00ff8866,transparent 70%);
+left:var(--x,50%);
+top:var(--y,50%);
+transform:translate(-50%,-50%);
+pointer-events:none;
+transition:.08s;
+}
+#bootScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+transition:opacity 1s;
+}
+
+.bootText{
+color:#00ff88;
+font-size:28px;
+text-align:center;
+text-shadow:0 0 20px #00ff88;
+animation:flicker .2s infinite alternate;
+}
+
+@keyframes flicker{
+from{opacity:.9;}
+to{opacity:1;}
+}
+/* ===== RED ALERT MODE ===== */
+
+.alert-mode{
+    animation:redFlash .5s infinite;
+    border:2px solid red !important;
+}
+
+.alert-mode #display{
+    color:#ff4444;
+    box-shadow:0 0 25px red inset;
+}
+
+.alert-mode button{
+    color:#ff5555;
+    box-shadow:0 0 15px red;
+}
+
+.alert-mode .equal{
+    background:red;
+    color:white;
+}
+
+@keyframes redFlash{
+    0%,100%{
+        box-shadow:0 0 30px red;
+    }
+    50%{
+        box-shadow:0 0 60px #ff0000;
+    }
+}
+/* ===========================
+   FINGERPRINT SCREEN
+=========================== */
+
+#fingerScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9998;
+}
+
+.fingerBox{
+position:relative;
+text-align:center;
+color:#00ff88;
+}
+
+.fingerprint{
+width:180px;
+height:220px;
+margin:auto;
+border:2px solid #00ff88;
+border-radius:90px;
+box-shadow:0 0 30px #00ff88;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+}
+
+/* Fake fingerprint lines */
+
+.fingerprint::before{
+content:"";
+position:absolute;
+inset:12px;
+border-radius:80px;
+background:
+repeating-radial-gradient(
+circle,
+transparent 0 6px,
+rgba(0,255,136,.9) 7px 8px
+);
+opacity:.9;
+}
+
+.scanLine{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+top:35px;
+width:170px;
+height:4px;
+background:#00ff88;
+box-shadow:0 0 20px #00ff88;
+display:none;
+}
+
+#status{
+margin-top:25px;
+font-size:22px;
+font-weight:bold;
+text-shadow:0 0 15px #00ff88;
+}
