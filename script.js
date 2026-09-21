@@ -201,7 +201,58 @@ finger.style.display="flex";
 
 let timer;
 
-fingerPrint.addEventListener("mousedown",()=>{
+let timer;
+
+function startScan() {
+
+    status.textContent = "SCANNING...";
+    scan.style.display = "block";
+
+    scan.animate(
+        [
+            { transform: "translate(-50%,0px)" },
+            { transform: "translate(-50%,150px)" }
+        ],
+        {
+            duration: 2000,
+            fill: "forwards"
+        }
+    );
+
+    timer = setTimeout(() => {
+        status.textContent = "ACCESS GRANTED";
+
+        setTimeout(() => {
+            finger.style.opacity = "0";
+
+            setTimeout(() => {
+                finger.style.display = "none";
+                calculator.style.display = "block";
+            }, 500);
+
+        }, 700);
+
+    }, 2000);
+}
+
+function cancelScan() {
+    clearTimeout(timer);
+    status.textContent = "WAITING...";
+    scan.style.display = "none";
+    scan.getAnimations().forEach(a => a.cancel());
+}
+
+// Desktop
+fingerPrint.addEventListener("mousedown", startScan);
+
+
+// Mobile
+fingerPrint.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    startScan();
+});
+
+fingerPrint.addEventListener("touchend", cancelScan);
 
 status.textContent="SCANNING...";
 scan.style.display="block";
