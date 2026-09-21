@@ -139,15 +139,7 @@ const rect=calc.getBoundingClientRect();
 calc.style.setProperty("--x",(e.clientX-rect.left)+"px");
 calc.style.setProperty("--y",(e.clientY-rect.top)+"px");
 });
-setTimeout(()=>{
-const boot=document.getElementById("bootScreen");
-boot.style.opacity="0";
 
-setTimeout(()=>{
-boot.style.display="none";
-},1000);
-
-},3000);
 // ===== SECRET HACKER MODE =====
 
 let secret = "";
@@ -173,38 +165,35 @@ document.addEventListener("keydown", (e) => {
     }
 
 });
+
+
 /* ===========================
    BOOT + FINGERPRINT UNLOCK
 =========================== */
 
-const boot=document.getElementById("bootScreen");
-const finger=document.getElementById("fingerScreen");
-const fingerPrint=document.querySelector(".fingerprint");
-const scan=document.querySelector(".scanLine");
-const status=document.getElementById("status");
-const calculator=document.querySelector(".calculator");
+const boot = document.getElementById("bootScreen");
+const finger = document.getElementById("fingerScreen");
+const fingerPrint = document.querySelector(".fingerprint");
+const scan = document.querySelector(".scanLine");
+const status = document.getElementById("status");
+const calculator = document.querySelector(".calculator");
 
-calculator.style.display="none";
+calculator.style.display = "none";
 
-// Boot screen
-setTimeout(()=>{
-boot.style.opacity="0";
+// Boot screen -> Fingerprint screen
+setTimeout(() => {
+    boot.style.opacity = "0";
 
-setTimeout(()=>{
-boot.style.display="none";
-finger.style.display="flex";
-},1000);
+    setTimeout(() => {
+        boot.style.display = "none";
+        finger.style.display = "flex";
+    }, 1000);
 
-},3000);
-
-// Fingerprint hold
+}, 3000);
 
 let timer;
 
-
-
 function startScan() {
-
     status.textContent = "SCANNING...";
     scan.style.display = "block";
 
@@ -244,7 +233,8 @@ function cancelScan() {
 
 // Desktop
 fingerPrint.addEventListener("mousedown", startScan);
-
+fingerPrint.addEventListener("mouseup", cancelScan);
+fingerPrint.addEventListener("mouseleave", cancelScan);
 
 // Mobile
 fingerPrint.addEventListener("touchstart", (e) => {
@@ -252,52 +242,4 @@ fingerPrint.addEventListener("touchstart", (e) => {
     startScan();
 });
 
-fingerPrint.addEventListener("touchend", cancelScan)
-
-status.textContent="SCANNING...";
-scan.style.display="block";
-
-scan.animate(
-[
-{transform:"translate(-50%,0px)"},
-{transform:"translate(-50%,150px)"}
-],
-{
-duration:2000,
-fill:"forwards"
-}
-);
-
-timer=setTimeout(()=>{
-
-status.textContent="ACCESS GRANTED";
-
-setTimeout(()=>{
-
-finger.style.opacity="0";
-
-setTimeout(()=>{
-finger.style.display="none";
-calculator.style.display="block";
-},500);
-
-},700);
-
-},2000);
-
-});
-
-function cancelScan(){
-
-clearTimeout(timer);
-
-status.textContent="WAITING...";
-
-scan.style.display="none";
-
-scan.getAnimations().forEach(a=>a.cancel());
-
-}
-
-fingerPrint.addEventListener("mouseup",cancelScan);
-fingerPrint.addEventListener("mouseleave",cancelScan);
+fingerPrint.addEventListener("touchend", cancelScan);
